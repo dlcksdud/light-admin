@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dreamsecurity.lightadminback.repository.RoleMenuMapper">
+    <select id="findAllowedUrisByRoles" resultType="String">
+        SELECT CONCAT('/api', path)
+        FROM
+        (
+        SELECT  DISTINCT m.PATH
+        FROM    TBL_ROLES_MENUS_MAP rm
+        JOIN    TBL_MENUS m ON m.SEQ = rm.MENU_SEQ
+        WHERE   rm.ROLE_SEQ IN
+            (SELECT  SEQ
+             FROM    TBL_ROLES tr
+             WHERE   tr.NAME in
+            <foreach item="role" collection="roles" open="(" separator="," close=")">
+                #{role}
+            </foreach>
+            )
+        AND     m.EXPOSURE = 'Y'
+        AND     m.path is not null
+        ) AS A
+    </select>
+</mapper>

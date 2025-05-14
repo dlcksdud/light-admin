@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dreamsecurity.lightadminback.repository.RefreshTokenMapper">
+    <select id="findById" parameterType="String" resultType="com.dreamsecurity.lightadminback.dto.RefreshTokenDTO">
+        SELECT R.USER_ID
+                ,R.TOKEN
+                ,R.EXPIRY_DATE
+        FROM TBL_REFRESHTOKENS R
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <insert id="insertOrUpdate" parameterType="com.dreamsecurity.lightadminback.dto.RefreshTokenDTO">
+        INSERT INTO TBL_REFRESHTOKENS
+        (
+            USER_ID, TOKEN, EXPIRY_DATE
+        )
+        VALUES
+        (
+            #{userId}, #{token}, #{expiryDate}
+        )
+        ON DUPLICATE KEY UPDATE
+        TOKEN       = VALUES(TOKEN),
+        EXPIRY_DATE = VALUES(EXPIRY_DATE)
+    </insert>
+    
+    <delete id="deleteByUserId" parameterType="java.lang.String">
+        DELETE FROM TBL_REFRESHTOKENS
+        WHERE USER_ID = #{userId}
+    </delete>
+</mapper>

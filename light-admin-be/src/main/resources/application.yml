@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: light-admin-back
+  datasource:
+    url: jdbc:mariadb://10.20.110.138:13306/light_admin
+    username: light_admin
+    password: emfla1004!@
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari: # Connection Pool 설정 (HikariCP 기본 사용)
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true  # snake_case → camelCase 자동 변환
+    cache-enabled: false  # 캐시 설정
+  mapper-locations: classpath:mappers/**/*.xml  # XML Mapper 파일 위치
+  type-aliases-package: com.dreamsecurity.light_admin_be.domain  # 엔티티 패키지 설정
+
+jwt:
+  secret: ZeUEPLOIlr2VWKcbd/VZNjUjLas7xXmW6jp7Y9n5n+PBnZeQ0DFSz//9bxaqX6j5flNLZ9kkxMUP4JZxNAU2wA==
+  jwtExpirationInMs: 1800000           # 30분
+  refreshExpirationDateInMs: 604800000 # 7일

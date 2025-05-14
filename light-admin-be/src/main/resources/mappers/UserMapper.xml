@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dreamsecurity.lightadminback.repository.UserMapper">
+    <select id="findById" resultType="com.dreamsecurity.lightadminback.dto.UserDTO">
+        SELECT tu.id
+                ,tu.password
+                ,tu.name
+                ,tu.email
+                ,tu.phone
+                ,(SELECT tr.name FROM TBL_ROLES tr WHERE tr.seq = trum.role_seq ) roles
+        FROM  TBL_USERS tu, TBL_ROLES_USERS_MAP trum
+        WHERE tu.seq  = trum.user_seq
+        AND	  tu.id = #{id}
+    </select>
+</mapper>
