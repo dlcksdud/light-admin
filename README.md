@@ -63,7 +63,7 @@ npm start
 ---
 
 ## 🛠️ 환경 변수 설정
-### Backend: application.yml 또는 .env 파일에서 DB, 보안 관련 설정
-### Frontend: .env 파일에서 API 서버 주소 설정
+- Backend: application.yml 또는 .env 파일에서 DB, 보안 관련 설정
+- Frontend: .env 파일에서 API 서버 주소 설정
 
 
